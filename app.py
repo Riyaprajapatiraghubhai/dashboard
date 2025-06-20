@@ -16,14 +16,33 @@ def dashboard():
 @app.route('/calculator', methods=["GET", "POST"])
 def calculator():
     result = ""
-    expression = ""
+    num1 = ""
+    num2 = ""
+    operator = ""
+
     if request.method == "POST":
-        expression = request.form.get("expression", "")
+        num1 = request.form.get("num1")
+        num2 = request.form.get("num2")
+        operator = request.form.get("operator")
+
         try:
-            result = eval(expression)
-        except Exception as e:
-            result = f"Error: {str(e)}"
-    return render_template("calculator.html", result=result, expression=expression)
+            num1 = float(num1)
+            num2 = float(num2)
+
+            if operator == "add":
+                result = num1 + num2
+            elif operator == "subtract":
+                result = num1 - num2
+            elif operator == "multiply":
+                result = num1 * num2
+            elif operator == "divide":
+                result = "Cannot divide by zero" if num2 == 0 else num1 / num2
+            else:
+                result = "Invalid operator"
+        except ValueError:
+            result = "Please enter valid numbers."
+
+    return render_template("calculator.html", result=result, num1=num1, num2=num2, operator=operator)
 
 # Currency Converter
 @app.route('/converter', methods=['GET', 'POST'])
@@ -62,17 +81,28 @@ def rps():
 def guess():
     msg = ""
     if 'number' not in session:
-        session['number'] = random.randint(1, 10)
+        session['number'] = random.randint(1, 100)  # Match the range shown in HTML
+
     if request.method == 'POST':
-        guess = int(request.form['guess'])
-        if guess == session['number']:
-            msg = "Correct!"
-            session.pop('number', None)
-        elif guess < session['number']:
-            msg = "Too Low!"
-        else:
-            msg = "Too High!"
+        try:
+            user_input = request.form.get('guess', '')
+            if not user_input.isdigit():
+                msg = "Please enter a valid number."
+            else:
+                guess = int(user_input)
+                target = session['number']
+                if guess == target:
+                    msg = "🎉 Correct! You've guessed it!"
+                    session.pop('number', None)  # Reset for a new game
+                elif guess < target:
+                    msg = "Too Low! Try again."
+                else:
+                    msg = "Too High! Try again."
+        except Exception as e:
+            msg = f"Error: {str(e)}"
+
     return render_template('guess.html', message=msg)
+
 
 # Register/Login
 users = {}
