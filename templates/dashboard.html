@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #141e30, #243b55);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+        h1 {
+            font-size: 40px;
+            margin-bottom: 40px;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        a.button {
+            text-decoration: none;
+            color: white;
+            background-color: #00c6ff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 220px;
+            transition: background-color 0.3s ease;
+        }
+        a.button:hover {
+            background-color: #0072ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟My Dashboard</h1>
+    <div class="menu">
+        <a class="button" href="/calculator">🧮 Calculator</a>
+        <a class="button" href="/converter">💱 Currency Converter</a>
+        <a class="button" href="/rps">✊✋✌ Rock Paper Scissors</a>
+        <a class="button" href="/guess">🎯 Guess the Number</a>
+        <a class="button" href="/register">📝 Register</a>
+        <a class="button" href="/weather">🌦️ weather</a>
+    </div>
+</body>
+</html>

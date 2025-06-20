@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>💱 Currency Converter</h1>
+        <form method="POST">
+            <input type="text" name="amount" placeholder="Enter amount in INR" required>
+            <button type="submit">Convert to USD</button>
+        </form>
+        {% if converted is not none %}
+            <p>Converted amount: {{ converted }} USD</p>
+        {% endif %}
+        <a href="/dashboard" class="dashboard-button">🔙 Back</a>
+    </div>
+</body>
+</html>
